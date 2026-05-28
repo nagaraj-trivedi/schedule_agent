@@ -1,0 +1,32 @@
+name: Run AMFI Data Analysis
+
+on:
+  schedule:
+    # This runs at 08:00 UTC on the 1st day of every month
+    - cron: '0 8 1 * *'
+  workflow_dispatch: # Allows you to trigger the analysis manually via the GitHub UI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install pandas openpyxl requests
+
+      - name: Run Analysis Agent
+        env:
+          # Add your Google Drive or API credentials in GitHub Secrets
+          # Repository Settings > Secrets and variables > Actions
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          # Replace 'aum_analysis.py' with the actual filename of your script
+          python aum_analysis.py
