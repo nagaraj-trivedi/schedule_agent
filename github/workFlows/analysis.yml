@@ -3,7 +3,7 @@ name: Run Nifty Analysis
 on:
   schedule:
     # Runs at 08:00 UTC on the 1st day of every month
-    - cron: '30 17 * * *'
+    - cron: '45 17 * * *'
   workflow_dispatch: # Allows you to trigger it manually via the GitHub UI
 
 jobs:
