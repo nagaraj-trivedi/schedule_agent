@@ -1,10 +1,10 @@
-name: Run AMFI Data Analysis
+name: Run Nifty Analysis
 
 on:
   schedule:
-    # This runs at 08:00 UTC on the 1st day of every month
-    - cron: '0 8 1 * *'
-  workflow_dispatch: # Allows you to trigger the analysis manually via the GitHub UI
+    # Runs at 08:00 UTC on the 1st day of every month
+    - cron: '30 17 * * *'
+  workflow_dispatch: # Allows you to trigger it manually via the GitHub UI
 
 jobs:
   build:
@@ -20,13 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pandas openpyxl requests
+          # We add yfinance and numpy here to support your script
+          pip install pandas yfinance numpy
 
       - name: Run Analysis Agent
-        env:
-          # Add your Google Drive or API credentials in GitHub Secrets
-          # Repository Settings > Secrets and variables > Actions
-          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
         run: |
-          # Replace 'aum_analysis.py' with the actual filename of your script
-          python aum_analysis.py
+          # This command executes your script in the root directory
+          python nifty_scanner.py
