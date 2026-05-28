@@ -1,6 +1,14 @@
 import yfinance as yf
 import pandas as pd
 import numpy as np
+import gspread
+from google.oauth2.service_account import Credentials
+
+# --- CONFIGURATION ---
+SHEET_NAME = 'nifty50_n50_trading_dry_test'
+WORKSHEET_NAME = 'category'
+JSON_KEYFILE = JSON_KEYFILE = '/content/drive/MyDrive/ai_agent/silicon-synapse-371016-63e6efa16ed3.json'
+
 
 # Nifty 50 Tickers
 nifty_50 = [
@@ -13,6 +21,9 @@ nifty_50 = [
     'SBILIFE', 'SHRIRAMFIN', 'SBIN', 'SUNPHARMA', 'TCS', 'TATACONSUM', 
     'TMPV', 'TATASTEEL', 'TECHM', 'TITAN', 'TRENT', 'ULTRACEMCO', 'WIPRO'
 ]
+
+
+
 
 def get_nifty_data():
     results = {i: [] for i in range(1, 18)}
@@ -58,8 +69,32 @@ def get_nifty_data():
         except Exception: continue
     return results
 
-# Execute and Display
-scan_results = get_nifty_data()
-for cat, stocks in scan_results.items():
-    if stocks:
-        print(f"Category {cat}: {', '.join(stocks)}")
+def update_google_sheet(data):
+    # Setup authentication
+    scope = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive"
+    ]
+    creds = Credentials.from_service_account_file(JSON_KEYFILE, scopes=scope)
+    client = gspread.authorize(creds)
+    
+    # Open the sheet
+    sheet = client.open(SHEET_NAME).worksheet(WORKSHEET_NAME)
+    
+    # Clear and update
+    sheet.clear()
+    
+    # Header
+    rows = [["Category", "Stocks"]]
+    for cat, stocks in data.items():
+        if stocks:
+            rows.append([f"Category {cat}", ', '.join(stocks)])
+        else:
+            rows.append([f"Category {cat}", "None"])
+    
+    sheet.append_rows(rows)
+    print(f"Successfully updated '{WORKSHEET_NAME}' in '{SHEET_NAME}'.")
+
+if __name__ == "__main__":
+    scan_results = get_nifty_data()
+    update_google_sheet(scan_results)
