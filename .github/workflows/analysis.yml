@@ -22,6 +22,8 @@ jobs:
         run: |
           # We add yfinance and numpy here to support your script
           pip install pandas yfinance numpy
+          python -m pip install --upgrade pip
+          pip install gspread  # <--- Add all your required libraries here
 
       - name: Run Analysis Agent
         run: |
