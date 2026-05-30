@@ -1,3 +1,14 @@
+from datetime import datetime
+
+print"The script is invoked at \n")
+
+current_time = datetime.now()
+print(current_time)
+
+current_time = datetime.now().time()
+print(current_time)
+
+"""
 import yfinance as yf
 import pandas as pd
 import numpy as np
@@ -98,3 +109,4 @@ def update_google_sheet(data):
 if __name__ == "__main__":
     scan_results = get_nifty_data()
     update_google_sheet(scan_results)
+"""
