@@ -4,6 +4,9 @@ on:
   schedule:
     # Runs at 08:00 UTC on the 1st day of every month
     - cron: '50 12 * * *'
+    - cron: '30 13 * * *'  # 7:00 PM IST
+    - cron: '0 14 * * *'   # 7:30 PM IST
+    - cron: '30 14 * * *'  # 8:00 PM IST
   workflow_dispatch: # Allows you to trigger it manually via the GitHub UI
 
 jobs:
