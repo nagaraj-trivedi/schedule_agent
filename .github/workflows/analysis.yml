@@ -28,7 +28,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install gspread  # <--- Add all your required libraries here
 
-      - name: Run Analysis Agent
-        run: |
+      #- name: Run Analysis Agent
+      #  run: |
           # This command executes your script in the root directory
-          python nifty_scanner.py
+      #    python nifty_scanner.py
+      # ... your other steps ...
+      - name: Create credentials file
+        run: echo '${{ secrets.GCP_CREDENTIALS }}' > credentials.json
+      
+      - name: Run Python script
+        env:
+          JSON_KEYFILE: "credentials.json"
+        run: python nifty_scanner.py
