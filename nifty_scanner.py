@@ -63,7 +63,9 @@ except Exception as e:
 try:
  
     # Open the sheet
-    sheet = client.open(SHEET_NAME).worksheet(WORKSHEET_NAME)
+    #sheet = client.open(SHEET_NAME).worksheet(WORKSHEET_NAME)
+    spreadsheet = client.open(SHEET_NAME)
+    sheet = spreadsheet.worksheet(WORKSHEET_NAME)
     # Verification: Print success message and the sheet title
     print(f"Successfully connected to Spreadsheet: '{spreadsheet.title}'")
     print(f"Successfully connected to Worksheet: '{sheet.title}'")
