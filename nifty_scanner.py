@@ -27,3 +27,16 @@ ist_time = utc_time.astimezone(ZoneInfo("Asia/Kolkata"))
 
 print(f"UTC Time: {utc_time.strftime('%Y-%m-%d %H:%M:%S')}")
 print(f"IST Time: {ist_time.strftime('%Y-%m-%d %H:%M:%S')}")
+
+ # Setup authentication
+scope = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive"
+    ]
+creds = Credentials.from_service_account_file(JSON_KEYFILE, scopes=scope)
+if creds:
+    print("Credentials object created successfully!")
+    print(f"Service account email: {creds.service_account_email}")
+else:
+    print("Credentials object was not created.")
+
