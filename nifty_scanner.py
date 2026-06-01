@@ -11,9 +11,10 @@ from google.oauth2.service_account import Credentials
 # --- CONFIGURATION ---
 SHEET_NAME = 'nifty50_n50_trading_dry_test'
 WORKSHEET_NAME = 'category'
-JSON_KEYFILE = JSON_KEYFILE = '/content/drive/MyDrive/ai_agent/silicon-synapse-371016-63e6efa16ed3.json'
+#JSON_KEYFILE = JSON_KEYFILE = '/content/drive/MyDrive/ai_agent/silicon-synapse-371016-63e6efa16ed3.json'
 
-
+# Instead of hardcoding the path '/content/drive/...', use this:
+JSON_KEYFILE = os.getenv("JSON_KEYFILE", "credentials.json")
 
 print("The script is invoked today Sunday at  \n")
 
