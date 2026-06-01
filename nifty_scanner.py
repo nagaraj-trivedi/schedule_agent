@@ -47,4 +47,17 @@ if creds:
     print(f"Service account email: {creds.service_account_email}")
 else:
     print("Credentials object was not created.")
+# 1. Authorize the client
+client = gspread.authorize(creds)
+
+# 2. Verify by listing sheets
+try:
+    # Attempt to fetch all spreadsheets the service account has access to
+    # Note: Ensure you have shared your Google Sheet with the service account email
+    sheets = client.openall()
+    print(f"Connection successful! Found {len(sheets)} accessible sheets.")
+    for s in sheets:
+        print(f"Sheet found: {s.title}")
+except Exception as e:
+    print(f"Connection failed: {e}")
 
