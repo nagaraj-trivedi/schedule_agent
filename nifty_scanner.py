@@ -60,4 +60,21 @@ try:
         print(f"Sheet found: {s.title}")
 except Exception as e:
     print(f"Connection failed: {e}")
+# Open the sheet
+sheet = client.open(SHEET_NAME).worksheet(WORKSHEET_NAME)
+# Verification: Print success message and the sheet title
+print(f"Successfully connected to Spreadsheet: '{spreadsheet.title}'")
+print(f"Successfully connected to Worksheet: '{sheet.title}'")
+    
+# Optional: Verify by reading the first cell
+# This proves the script has permission to actually READ the data
+first_cell = sheet.cell(1, 1).value
+print(f"Read test successful. Cell A1 contains: '{first_cell}'")
+
+except gspread.exceptions.SpreadsheetNotFound:
+    print(f"Error: The spreadsheet '{SHEET_NAME}' was not found.")
+except gspread.exceptions.WorksheetNotFound:
+    print(f"Error: The worksheet '{WORKSHEET_NAME}' was not found in '{SHEET_NAME}'.")
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")
 
