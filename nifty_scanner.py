@@ -6,6 +6,7 @@ import yfinance as yf
 import pandas as pd
 import numpy as np
 import gspread
+import OS
 from google.oauth2.service_account import Credentials
 
 # --- CONFIGURATION ---
