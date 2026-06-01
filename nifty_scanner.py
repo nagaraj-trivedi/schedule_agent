@@ -2,6 +2,13 @@ from datetime import datetime
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import gspread
+from google.oauth2.service_account import Credentials
+
+
 print("The script is invoked today Sunday at  \n")
 
 current_time = datetime.now()
