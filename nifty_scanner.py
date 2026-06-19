@@ -16,6 +16,7 @@ WORKSHEET_NAME = 'category'
 
 # Instead of hardcoding the path '/content/drive/...', use this:
 JSON_KEYFILE = os.getenv("JSON_KEYFILE", "credentials.json")
+print("JSON KEY FILE IS :", JSON_KEYFILE)
 
 print("The script is invoked today Sunday at  \n")
 
